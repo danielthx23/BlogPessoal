@@ -45,15 +45,11 @@ public class PostagemController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 
-	// SELECT * FROM tb_postagens WHERE titulo = "titulo";
-	@GetMapping("/titulo/{titulo}") // localhost:8080/postagens/titulo/Postagem 02
 	public ResponseEntity<List<Postagem>> getByTitulo(@PathVariable String titulo) {
 		return ResponseEntity.ok(postagemRepository.findAllByTituloContainingIgnoreCase(titulo));
 
 	}
 
-	// INSERT INTO tb_postagens (titulo, texto, data) VALUES ("Título", "Texto",
-	// "2024-12-31 14:05:01");
 	@PostMapping
 	public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem) {
 		if (temaRepository.existsById(postagem.getTema().getId()))
